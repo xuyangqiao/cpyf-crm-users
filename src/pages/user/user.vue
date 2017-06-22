@@ -41,6 +41,17 @@
             </div>
           </div>
         </router-link>
+        <a :href="partnerUrl" class="menu-item">
+          <div class="icon-wrap">
+            <span class="menu-icon menu-partner"></span>
+          </div>
+          <div class="item-content vux-1px-b">
+            <h1 class="title">合伙人</h1>
+            <div class="link">
+              <x-icon type="ios-arrow-right" size="20"></x-icon>
+            </div>
+          </div>
+        </a>
         <router-link to='/record' tag='div' class="menu-item">
           <div class="icon-wrap">
             <span class="menu-icon menu-recorde"></span>
@@ -89,6 +100,7 @@
 import api from '@/api'
 import noclient from '@/components/noclient'
 import attentionTip from '@/components/attentionTip.vue'
+import {config} from '@/config'
 
 export default {
   components: {
@@ -101,6 +113,9 @@ export default {
     }
   },
   computed: {
+    partnerUrl () {
+      return config.partnerUrl
+    },
     userDefault () {
       return this.$store.state.userDefault
     },
@@ -246,6 +261,14 @@ export default {
         .menu-about{
           background-image: url('./../../assets/images/icon/menu-cpyf.png');
           background-size: 0.3rem;
+        }
+        .menu-partner{
+          background-image: url('./../../assets/images/icon/menu-partner.png');
+          background-size: 0.4rem;
+        }
+        .menu-partnerapply{
+          background-image: url('./../../assets/images/icon/menu-partnerapply.png');
+          background-size: 0.36rem;
         }
       }
       .item-content{

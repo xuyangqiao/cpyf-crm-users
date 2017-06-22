@@ -91,6 +91,7 @@
         iosAvatar: '',
         sexShow: false,
         sexMenu: {
+          0: '<span style="display:inline-block; height: .6rem; line-height: .6rem;">保密</span>',
           1: '<span style="display:inline-block; height: .6rem; line-height: .6rem;">男</span>',
           2: '<span style="display:inline-block; height: .6rem; line-height: .6rem;">女</span>'
         },
@@ -105,8 +106,8 @@
     },
     computed: {
       sexMsg () {
-        if (this.form.sex === 0) {
-          return '请选择性别'
+        if (this.form.sex === '0') {
+          return '保密'
         } else if (this.form.sex === '1') {
           return '男'
         } else {

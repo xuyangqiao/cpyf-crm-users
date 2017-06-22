@@ -113,6 +113,7 @@ export default {
       activeIndex: -1,
       showInfo: false,
       typeShow: false,
+      fetching: false,  // 判断是否正在提交请求，免得双击
       picList: [], // 上传图片区
       iosPicData: [], // 兼容苹果图片数据
       flag: 0, // 上传图片标识
@@ -309,6 +310,7 @@ export default {
     async reserve () {
       const {data: {code, msg}} = await api.post('/Users/Reserve/AddReserve', this.form)
       if (code === 200) {
+        this.fetching = false
         this.$router.push('/success')
       } else {
         window.sessionStorage.setItem('error', msg)
@@ -319,6 +321,10 @@ export default {
     // 上传图片
     uploadPic () {
       let self = this
+      if (self.fetching) {
+        return
+      }
+      self.fetching = true
       if (!this.form.patient_id) {
         this.toast('请选择就诊人')
         return

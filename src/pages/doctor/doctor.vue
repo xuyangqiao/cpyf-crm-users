@@ -136,12 +136,6 @@
             type: 'primary',
             value: '2'
           }
-        ],
-        mock: [
-          {
-            up: 2,
-            down: 0
-          }
         ]
       }
     },
