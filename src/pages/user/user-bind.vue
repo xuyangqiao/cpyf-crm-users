@@ -75,6 +75,7 @@
         let option = {code: this.form.code}
         const {data: {code, msg}} = await api.get('/Users/Mycenter/BindUserinfo', option)
         if (code === 200) {
+          api.get('/Qrcode/Qrcode/MakePoster')
           this.toast('绑定成功')
           this.$router.go(-1)
         } else {

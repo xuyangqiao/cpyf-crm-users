@@ -88,6 +88,10 @@
     <div class="fix-tip" v-if="clientList && !form.patient_id" v-cloak>
       *请选择就诊人
     </div>
+
+    <div v-transfer-dom>
+      <loading v-model="loading" :text="loadingText"></loading>
+    </div>
   </div>
 </template>
 
@@ -309,8 +313,8 @@ export default {
     // 提交预约
     async reserve () {
       const {data: {code, msg}} = await api.post('/Users/Reserve/AddReserve', this.form)
+      this.$vux.loading.hide()
       if (code === 200) {
-        this.fetching = false
         this.$router.push('/success')
       } else {
         window.sessionStorage.setItem('error', msg)
@@ -321,10 +325,6 @@ export default {
     // 上传图片
     uploadPic () {
       let self = this
-      if (self.fetching) {
-        return
-      }
-      self.fetching = true
       if (!this.form.patient_id) {
         this.toast('请选择就诊人')
         return
@@ -336,10 +336,13 @@ export default {
         self.reserve()
         return
       }
+      this.$vux.loading.show({
+        text: '提交中'
+      })
       let localId = this.picList[self.flag] // 拿到对应下标的图片ID
       this.$wechat.uploadImage({
         localId: localId, // 需要上传的图片的本地ID，由chooseImage接口获得
-        isShowProgressTips: 1,
+        isShowProgressTips: 0,
         success: function (res) {
           const serverId = res.serverId // 返回图片的服务器端ID
           self.flag ++

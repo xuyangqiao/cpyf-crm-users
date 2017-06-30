@@ -20,14 +20,14 @@
 
     <!--擅长技术-->
     <div class="skill">
-      <h1 class="title">个人简介</h1>
+      <h1 class="title" v-if="parseInt($route.query.yid) !== 10">个人简介</h1>
       <p class="text" :class='{hidden: doctorInfo.desc.length > 75 && !showMore}'>{{doctorInfo.desc}}</p>
       <div class="other-text" v-show="showMore">
-        <h1 class="title" v-if="doctorInfo.skill">擅长技术</h1>
+        <h1 class="title" v-if="doctorInfo.skill && parseInt($route.query.yid) !== 10">擅长技术</h1>
         <p class="text">{{doctorInfo.skill}}</p>
-        <h1 class="title" v-if="doctorInfo.disease">擅长病种</h1>
+        <h1 class="title" v-if="doctorInfo.disease && parseInt($route.query.yid) !== 10">擅长病种</h1>
         <p class="text">{{doctorInfo.disease}}</p>
-        <h1 class="title" v-if="doctorInfo.work_process">工作经历</h1>
+        <h1 class="title" v-if="doctorInfo.work_process && parseInt($route.query.yid) !== 10">工作经历</h1>
         <p class="text">{{doctorInfo.work_process}}</p>
       </div>
       
@@ -356,11 +356,14 @@
       },
       shareMsg () {
         this.$wechat.ready(() => {
+          setTimeout(() => {
+            document.title = this.doctorInfo.name
+          }, 100)
           this.wechatShare({
-            title: `川派医方馆疼痛专家${this.doctorInfo.name}`,
+            title: `川派医方馆${this.doctorInfo.name}${this.doctorInfo.title_title}`,
             link: this.handUrl(location.hash),
             img: `${this.doctorInfo.avatar}`,
-            desc: `擅长病种：${this.doctorInfo.disease}`
+            desc: `${this.doctorInfo.disease}`
           })
         })
       }

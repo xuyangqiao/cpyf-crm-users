@@ -2,6 +2,9 @@
   <div v-transfer-dom>
     <x-dialog v-model="windowShow" class="noclient-wrap" :hide-on-blur='true'>
       <div class="noclient">
+        <div class="icon-close" @click='windowShow = !windowShow'>
+          <x-icon type="ios-close-outline" size="30"></x-icon>
+        </div>
         <h1 class="title">温馨提示</h1>
         <p>1、本院实行实名预约就诊制度，预约前请先绑定就诊人；</p>
         <p>2、预约后，分诊护士可能会通过电话与您确认预约信息，如影响到您的休息，请谅解；</p>
@@ -28,9 +31,9 @@
     components: {
       XDialog
     },
-    computed: {
-      windowShow () {
-        return !this.tipShow
+    data () {
+      return {
+        windowShow: !this.tipShow
       }
     },
     methods: {
@@ -49,9 +52,20 @@
       border-radius: 6px;
     }
     .noclient{
+      position: relative;
       width: 6.9rem;
       padding: 0.57rem 0.6rem 0;
       box-sizing: border-box;
+      .icon-close {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        height: 30px;
+        .vux-x-icon{
+          fill: #2d2d2d;
+          display: block;
+        }
+      }
       .title{
         color: #2d2d2d;
         font-size: 0.36rem;

@@ -41,17 +41,6 @@
             </div>
           </div>
         </router-link>
-        <a :href="partnerUrl" class="menu-item">
-          <div class="icon-wrap">
-            <span class="menu-icon menu-partner"></span>
-          </div>
-          <div class="item-content vux-1px-b">
-            <h1 class="title">合伙人</h1>
-            <div class="link">
-              <x-icon type="ios-arrow-right" size="20"></x-icon>
-            </div>
-          </div>
-        </a>
         <router-link to='/record' tag='div' class="menu-item">
           <div class="icon-wrap">
             <span class="menu-icon menu-recorde"></span>
@@ -77,6 +66,17 @@
             </div>
           </div>
         </div>-->
+        <a :href="partnerUrl" class="menu-item">
+          <div class="icon-wrap">
+            <span class="menu-icon menu-partner"></span>
+          </div>
+          <div class="item-content vux-1px-b">
+            <h1 class="title">加入我们</h1>
+            <div class="link">
+              <x-icon type="ios-arrow-right" size="20"></x-icon>
+            </div>
+          </div>
+        </a>
         <a href="http://www.chuanpaiyifang.com/about/" class="menu-item">
           <div class="icon-wrap">
             <span class="menu-icon menu-about"></span>
