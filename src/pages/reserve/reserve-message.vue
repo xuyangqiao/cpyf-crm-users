@@ -132,7 +132,8 @@ export default {
         desc: '',
         reserve_time: '',
         reserve_type: '',
-        doctor_id: ''
+        doctor_id: '',
+        write_type: 7
       }
     }
   },

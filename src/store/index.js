@@ -9,11 +9,7 @@ const state = {
   newClientId: '',
   editUser: {},
   reserveInfo: null,
-  userDefault: {
-    count: 1,
-    truename: '',
-    agentId: '' // 分享ID
-  }
+  userDefault: {}
 }
 
 const mutations = {

@@ -196,6 +196,9 @@
           color: #3f3f3f;
           font-size: 0.26rem;
           flex: 1;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
         .type{
           color: #3f3f3f;

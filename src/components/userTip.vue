@@ -12,9 +12,10 @@
         <p>4、如有特殊原因不能到诊，请提前取消预约，将号源留给其他需要的人，谢谢！</p>
       </div>
       <div class="know-wrap">
-        <div class="know-btn" @click='newClient'>
+        <div class="know-btn" @click='userTip'>
           <span class="know-icon"></span>
-          <span class="text">添加就诊人</span>
+          <span class="text" v-if="!mobile">绑定手机号</span>
+          <span class="text" v-else>完善个人资料</span>
         </div>
       </div>
     </x-dialog>
@@ -24,7 +25,7 @@
 <script>
   import { XDialog, TransferDomDirective as TransferDom } from 'vux'
   export default {
-    props: ['tipShow'],
+    props: ['tipShow', 'mobile'],
     directives: {
       TransferDom
     },
@@ -33,17 +34,16 @@
     },
     data () {
       return {
-        windowShow: false
+        windowShow: !this.tipShow
       }
     },
-    created () {
-      setTimeout(() => {
-        this.windowShow = !this.tipShow
-      }, 1000)
-    },
     methods: {
-      newClient () {
-        this.$router.push('/newclient')
+      userTip () {
+        if (!this.mobile) {
+          this.$router.push('/userbind')
+        } else {
+          this.$router.push('/edit')
+        }
       }
     }
   }

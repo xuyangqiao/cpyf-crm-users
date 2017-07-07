@@ -136,6 +136,9 @@
           this.toast('请正确填写身份证')
           return
         }
+        this.$vux.loading.show({
+          text: '提交中'
+        })
         const {data: {code, msg}} = await api.post('/Users/Mycenter/EditUserInfo', this.form)
         if (code === 200) {
           this.$store.commit('updateDefault')

@@ -58,7 +58,7 @@
     </div>
 
     <!--就诊人提示-->
-    <noclient :tipShow='userDefault.count'></noclient>
+    <noclient :tipShow='!!$store.state.userDefault.count'></noclient>
   </div>
 </template>
 
@@ -390,8 +390,9 @@
           width: 9px;
           height: 9px;
           transition: all linear .2s;
+          transform: rotate(180deg);
           &.active{
-            transform: rotate(180deg)
+            transform: rotate(0);
           }
         }
       }

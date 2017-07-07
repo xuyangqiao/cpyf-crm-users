@@ -73,11 +73,14 @@
           return
         }
         let option = {code: this.form.code}
+        this.$vux.loading.show({
+          text: '提交中'
+        })
         const {data: {code, msg}} = await api.get('/Users/Mycenter/BindUserinfo', option)
         if (code === 200) {
           api.get('/Qrcode/Qrcode/MakePoster')
           this.toast('绑定成功')
-          this.$router.go(-1)
+          this.$router.push({path: '/edit'})
         } else {
           this.toast(msg)
         }
@@ -92,6 +95,9 @@
           return
         }
         let option = {code: this.form.code}
+        this.$vux.loading.show({
+          text: '提交中'
+        })
         const {data: {code, msg}} = await api.get('/Users/Mycenter/EditMobile', option)
         if (code === 200) {
           this.toast('绑定成功')

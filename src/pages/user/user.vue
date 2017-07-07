@@ -18,7 +18,7 @@
 
     <div class="menu">
       <div class="menu-group">
-        <div @click='binLink' class="menu-item">
+        <div @click='binLink' class="menu-item bindMobile">
           <div class="icon-wrap">
             <span class="menu-icon menu-mobile"></span>
           </div>
@@ -66,55 +66,74 @@
             </div>
           </div>
         </div>-->
-        <a :href="partnerUrl" class="menu-item">
-          <div class="icon-wrap">
-            <span class="menu-icon menu-partner"></span>
-          </div>
-          <div class="item-content vux-1px-b">
-            <h1 class="title">加入我们</h1>
-            <div class="link">
-              <x-icon type="ios-arrow-right" size="20"></x-icon>
+        <div v-if="userDefault.menu || userDefault.MenuList.login || userDefault.level < 5">
+          <a :href="url.partnerUrl" class="menu-item">
+            <div class="icon-wrap">
+              <span class="menu-icon menu-partner"></span>
             </div>
-          </div>
-        </a>
-        <a href="http://www.chuanpaiyifang.com/about/" class="menu-item">
-          <div class="icon-wrap">
-            <span class="menu-icon menu-about"></span>
-          </div>
-          <div class="item-content">
-            <h1 class="title">关于川派医方馆</h1>
-            <div class="link">
-              <x-icon type="ios-arrow-right" size="20"></x-icon>
+            <div class="item-content vux-1px-b">
+              <h1 class="title">加入我们</h1>
+              <div class="link">
+                <x-icon type="ios-arrow-right" size="20"></x-icon>
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
+        <div v-if="userDefault.menu || userDefault.MenuList.poster || userDefault.level < 5">
+          <a :href="url.posterUrl" class="menu-item">
+            <div class="icon-wrap">
+              <span class="menu-icon menu-poster"></span>
+            </div>
+            <div class="item-content vux-1px-b">
+              <h1 class="title">活动推荐</h1>
+              <div class="link">
+                <x-icon type="ios-arrow-right" size="20"></x-icon>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div>
+          <a href="http://www.chuanpaiyifang.com/about/" class="menu-item">
+            <div class="icon-wrap">
+              <span class="menu-icon menu-about"></span>
+            </div>
+            <div class="item-content">
+              <h1 class="title">关于川派医方馆</h1>
+              <div class="link">
+                <x-icon type="ios-arrow-right" size="20"></x-icon>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
 
+    <div class="windowMask" v-if="windowMask" v-show="windowMaskShow" @click='windowMaskShow = false'></div>
     <!--就诊人提示-->
-    <noclient v-show="!attentionShow" :tipShow='userDefault.count'></noclient>
+    <!--<usertip v-show="!attentionShow" :tipShow='userDefault.count' :mobile='user.mobile'></usertip>-->
   </div>
 </template>
 
 <script>
 import api from '@/api'
-import noclient from '@/components/noclient'
+import usertip from '@/components/userTip.vue'
 import attentionTip from '@/components/attentionTip.vue'
 import {config} from '@/config'
 
 export default {
   components: {
-    noclient,
+    usertip,
     attentionTip
   },
   data () {
     return {
-      user: ''
+      user: '',
+      windowMaskShow: true
     }
   },
   computed: {
-    partnerUrl () {
-      return config.partnerUrl
+    url () {
+      return config
     },
     userDefault () {
       return this.$store.state.userDefault
@@ -128,14 +147,21 @@ export default {
     },
     attentionShow () {
       // 如果没有就诊人 直接返回false 不提示关注公众号
-      if (this.userDefault.count <= 0) {
+      console.log(this.userDefault.count)
+      if (this.$store.state.userDefault.count <= 0) {
         return false
       }
-      if (this.$store.state.userDefault.attention !== 0) {
+      if (this.userDefault.count > 0 && this.$store.state.userDefault.attention !== 0) {
         return false
       } else {
         return true
       }
+    },
+    windowMask () {
+      if (this.userDefault.count <= 0) {
+        return true
+      }
+      return false
     }
   },
   async created () {
@@ -233,6 +259,10 @@ export default {
       background: #fff;
       height: 0.88rem;
       line-height: 0.88rem;
+      &.bindMobile{
+        position: relative;
+        z-index: 2000;
+      }
       .icon-wrap{
         width: 0.88rem;
         height: 0.88rem;
@@ -270,6 +300,10 @@ export default {
           background-image: url('./../../assets/images/icon/menu-partnerapply.png');
           background-size: 0.36rem;
         }
+        .menu-poster{
+          background-image: url('./../../assets/images/icon/menu-poster.png');
+          background-size: 0.36rem;
+        }
       }
       .item-content{
         display: flex;
@@ -290,5 +324,14 @@ export default {
         }
       }
     }
+  }
+  .windowMask{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .3);
+    z-index: 100;
   }
 </style>
