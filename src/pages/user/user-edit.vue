@@ -143,7 +143,7 @@
         if (code === 200) {
           this.$store.commit('updateDefault')
           this.toast('编辑成功')
-          this.$router.go(-1)
+          this.$router.push('/user')
           window.localStorage.removeItem('editInfo')
         } else {
           this.toast(msg)

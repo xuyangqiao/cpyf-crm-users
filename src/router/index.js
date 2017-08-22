@@ -52,7 +52,7 @@ export default new Router({
       path: '/newclient',
       meta: {
         title: '新建就诊人',
-        footer: 2
+        footer: 3
       },
       component: function (resolve) {
         require(['./../pages/client/client-new.vue'], resolve)
@@ -62,7 +62,7 @@ export default new Router({
       path: '/clientmanage',
       meta: {
         title: '就诊人管理',
-        footer: 2
+        footer: 3
       },
       component: function (resolve) {
         require(['./../pages/client/client-manage.vue'], resolve)
@@ -92,7 +92,7 @@ export default new Router({
       path: '/user',
       meta: {
         title: '个人中心',
-        footer: 2
+        footer: 3
       },
       component: function (resolve) {
         require(['./../pages/user/user.vue'], resolve)
@@ -102,7 +102,7 @@ export default new Router({
       path: '/edit',
       meta: {
         title: '修改资料',
-        footer: 2
+        footer: 3
       },
       component: function (resolve) {
         require(['./../pages/user/user-edit.vue'], resolve)
@@ -112,7 +112,7 @@ export default new Router({
       path: '/userbind',
       meta: {
         title: '绑定手机号',
-        footer: 2
+        footer: 3
       },
       component: function (resolve) {
         require(['./../pages/user/user-bind.vue'], resolve)
@@ -136,6 +136,56 @@ export default new Router({
       },
       component: function (resolve) {
         require(['./../pages/reserve/reserve-fail.vue'], resolve)
+      }
+    },
+    {
+      path: '/find',
+      meta: {
+        title: '发现',
+        footer: 2
+      },
+      component: function (resolve) {
+        require(['./../pages/find/find-index.vue'], resolve)
+      }
+    },
+    {
+      path: '/find/list',
+      meta: {
+        title: '发现',
+        footer: 2
+      },
+      component: function (resolve) {
+        require(['./../pages/find/find-list.vue'], resolve)
+      }
+    },
+    {
+      path: '/find/list/article',
+      meta: {
+        title: '文章详情',
+        footer: 2
+      },
+      component: function (resolve) {
+        require(['./../pages/find/find-article.vue'], resolve)
+      }
+    },
+    {
+      path: '/find/subject',
+      meta: {
+        title: '专题',
+        footer: 2
+      },
+      component: function (resolve) {
+        require(['./../pages/find/find-subject.vue'], resolve)
+      }
+    },
+    {
+      path: '/find/topic',
+      meta: {
+        title: '专题详情',
+        footer: 2
+      },
+      component: function (resolve) {
+        require(['./../pages/find/find-subjectDetail.vue'], resolve)
       }
     }
   ]

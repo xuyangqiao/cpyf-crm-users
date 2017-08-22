@@ -1,6 +1,6 @@
 <template>
-<div class="footer" v-show="footerShow">
-  <tabbar v-model="footerSelect">
+<div class="footer">
+  <tabbar v-model="footerSelect" :class="{hidden: !footerShow}">
     <tabbar-item link="/">
       <img class="default" slot="icon" src="../assets/images/icon/footer-reserve.png">
       <img class="active" slot="icon" src="../assets/images/icon/footer-reserve-active.png">
@@ -11,6 +11,11 @@
       <img class="active" slot="icon" src="../assets/images/icon/footer-doctor-active.png">
       <span slot="label">专家</span>
     </tabbar-item>
+     <tabbar-item link="/find">
+      <img class="default" slot="icon" src="../assets/images/icon/footer-find.png">
+      <img class="active" slot="icon" src="../assets/images/icon/footer-find-active.png">
+      <span slot="label">发现</span>
+    </tabbar-item> 
     <tabbar-item link="/user">
       <img class="default" slot="icon" src="../assets/images/icon/footer-user.png">
       <img class="active" slot="icon" src="../assets/images/icon/footer-user-active.png">
@@ -45,6 +50,10 @@
   height: 1rem;
   position: fixed !important;
   left: 0;
+  transition: all linear .1s;
+  &.hidden{
+    bottom: -1rem;
+  }
   .weui-tabbar__item{
     padding-top: 0.15rem;
     img.active{

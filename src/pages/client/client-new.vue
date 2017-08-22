@@ -246,8 +246,9 @@
     width: 9px;
     height: 9px;
     transition: all linear .2s;
+    transform: rotate(180deg);
     &.active{
-      transform: rotate(180deg)
+      transform: rotate(0);
     }
   }
 }

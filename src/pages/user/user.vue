@@ -93,6 +93,19 @@
           </a>
         </div>
         <div>
+          <a href="https://www.sobot.com/chat/pc/index.html?sysNum=7db545cf781543878d3f132c844fc6a8" class="menu-item">
+            <div class="icon-wrap">
+              <span class="menu-icon menu-service"></span>
+            </div>
+            <div class="item-content vux-1px-b">
+              <h1 class="title">就诊咨询</h1>
+              <div class="link">
+                <x-icon type="ios-arrow-right" size="20"></x-icon>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div>
           <a href="http://www.chuanpaiyifang.com/about/" class="menu-item">
             <div class="icon-wrap">
               <span class="menu-icon menu-about"></span>
@@ -302,6 +315,10 @@ export default {
         }
         .menu-poster{
           background-image: url('./../../assets/images/icon/menu-poster.png');
+          background-size: 0.36rem;
+        }
+        .menu-service{
+          background-image: url('./../../assets/images/icon/menu-service.png');
           background-size: 0.36rem;
         }
       }
