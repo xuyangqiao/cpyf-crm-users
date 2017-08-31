@@ -182,6 +182,14 @@
         this.$store.commit('footerShow', this.footer)
       },
       footerScroll () {
+        var a = document.body.scrollTop === 0 ? document.body.clientHeight : document.documentElement.clientHeight
+        var b = document.body.scrollTop === 0 ? document.body.scrollTop : document.documentElement.scrollTop
+        var c = document.body.scrollTop === 0 ? document.body.scrollHeight : document.documentElement.scrollHeight
+        if (a + b === c) {
+          this.footer = true
+          this.$store.commit('footerShow', this.footer)
+          return
+        }
         if (this.footer) {
           this.footer = false
           this.$store.commit('footerShow', this.footer)
@@ -189,17 +197,38 @@
       },
       shareMsg () {
         this.$wechat.ready(() => {
-          this.wechatShare({
-            title: `${this.content.title}`,
-            link: this.handUrl(location.hash),
-            img: `${this.content.img}`,
-            desc: `${this.content.desc}`
+          const id = this.$route.query.id
+          const url = location.origin + '/?' + 'agentid=' + this.$store.state.userDefault.agentId + '&share_url=' + this.handUrl(location.hash) + '?'
+          this.$wechat.onMenuShareTimeline({
+            title: `${this.content.title}`, // 分享标题
+            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: `${this.content.img}`, // 分享图标
+            success: async function () {
+              await api.get('/Users/Article/ArticleShare', {id: id})
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+          })
+          this.$wechat.onMenuShareAppMessage({
+            title: `${this.content.title}`, // 分享标题
+            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: `${this.content.img}`, // 分享图标
+            desc: `${this.content.desc}`, // 分享描述
+            success: async function () {
+              await api.get('/Users/Article/ArticleShare', {id: id})
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
           })
         })
       }
     },
     mounted () {
-      document.addEventListener('scroll', this.footerScroll)
+      this.$nextTick(() => {
+        document.addEventListener('scroll', this.footerScroll)
+      })
     }
   }
 </script>

@@ -21,12 +21,6 @@
       next()
     },
     methods: {
-      // swipe (evt) {
-      //   console.log(evt)
-      //   if (evt.direction === 'Left') {
-      //     console.log(123123123)
-      //   }
-      // },
       async fetchData () {
         const {data: {code, data, msg}} = await api.get('/Users/Article/SpecialDetail', {id: this.$route.query.tid})
         if (code === 200) {

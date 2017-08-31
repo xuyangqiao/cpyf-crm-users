@@ -46,7 +46,7 @@
             <span class="menu-icon menu-recorde"></span>
           </div>
           <div class="item-content">
-            <h1 class="title">我的预约记录</h1>
+            <h1 class="title">预约记录</h1>
             <div class="link">
               <x-icon type="ios-arrow-right" size="20"></x-icon>
             </div>
@@ -111,7 +111,7 @@
               <span class="menu-icon menu-about"></span>
             </div>
             <div class="item-content">
-              <h1 class="title">关于川派医方馆</h1>
+              <h1 class="title">关于川派</h1>
               <div class="link">
                 <x-icon type="ios-arrow-right" size="20"></x-icon>
               </div>

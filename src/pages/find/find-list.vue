@@ -63,7 +63,8 @@
         categoryList: [],
         articleList: [],
         fetchIng: 'canLoad',
-        SpecialList: ''
+        SpecialList: '',
+        shareList: ''
       }
     },
     computed: {
@@ -87,11 +88,12 @@
       async fetchData () {
         this.fetchIng = 'loading'
         const option = Object.assign({category_id: this.categoryId}, this.nextPage)
-        const {data: {code, data, SpecialList}} = await api.get('/Users/Article/ArticleList', option)
+        const {data: {code, data, SpecialList, CategoryList}} = await api.get('/Users/Article/ArticleList', option)
         if (code === 200) {
           this.page ++
           this.SpecialList = SpecialList
           this.articleList = this.articleList.concat(data)
+          this.shareList = CategoryList
           if (data.length < 20) {
             this.fetchIng = 'nomore'
           } else {
@@ -99,7 +101,7 @@
           }
         }
       },
-      checkList (id = '') {
+      async checkList (id = '') {
         if (id === this.categoryId) {
           return
         }
@@ -108,18 +110,31 @@
         this.fetchIng = 'canLoad'
         this.articleList = []
         this.SpecialList = ''
-        this.fetchData()
-      }
-    },
-    mounted () {
-      this.$wechat.ready(() => {
-        this.wechatShare({
-          title: `${this.$store.state.userDefault.truename}推荐您预约川派医方馆疼痛专家`,
-          link: this.handUrl(location.hash),
-          img: 'http://qpic.cn/6oICaLv7r',
-          desc: '川派医方馆，专治头颈肩腰四肢关节疼痛！'
+        this.shareList = ''
+        await this.fetchData()
+        await this.wechatConfig()
+        this.shareMsg()
+      },
+      shareMsg () {
+        this.$wechat.ready(() => {
+          this.wechatShare({
+            title: this.shareList.title || '川派医方馆精彩内容推荐！',
+            link: this.categoryId ? '/find/list?cid=' + this.categoryId : '/find/list',
+            img: this.shareList.img || 'http://b385.photo.store.qq.com/psb?/V11P0IcO3nwu6m/UEt*RxnRmtsQIMYLCds4YdTeGWa58xXbRYb6vWz0fiA!/b/dIEBAAAAAAAA&bo=ZABkAAAAAAADACU!&rf=viewer_4&t=5',
+            desc: this.shareList.desc || '川派活动、川派风采、疼痛科普、川派中医……'
+          })
         })
-      })
+      },
+      mounted () {
+        this.$wechat.ready(() => {
+          this.wechatShare({
+            title: this.shareList.title || '川派医方馆精彩内容推荐！',
+            link: this.categoryId ? '/find/list?cid=' + this.categoryId : '/find/list',
+            img: this.shareList.img || 'http://b385.photo.store.qq.com/psb?/V11P0IcO3nwu6m/UEt*RxnRmtsQIMYLCds4YdTeGWa58xXbRYb6vWz0fiA!/b/dIEBAAAAAAAA&bo=ZABkAAAAAAADACU!&rf=viewer_4&t=5',
+            desc: this.shareList.desc || '川派活动、川派风采、疼痛科普、川派中医……'
+          })
+        })
+      }
     }
   }
 </script>

@@ -21,14 +21,14 @@
     <!--擅长技术-->
     <div class="skill">
       <h1 class="title" v-if="parseInt($route.query.yid) !== 10">个人简介</h1>
-      <p class="text" :class='{hidden: doctorInfo.desc.length > 75 && !showMore}'>{{doctorInfo.desc}}</p>
+      <div class="text" :class='{hidden: !showMore}' v-html="doctorInfo.desc"></div>
       <div class="other-text" v-show="showMore">
         <h1 class="title" v-if="doctorInfo.skill && parseInt($route.query.yid) !== 10">擅长技术</h1>
-        <p class="text">{{doctorInfo.skill}}</p>
+        <div class="text" v-html="doctorInfo.skill"></div>
         <h1 class="title" v-if="doctorInfo.disease && parseInt($route.query.yid) !== 10">擅长病种</h1>
-        <p class="text">{{doctorInfo.disease}}</p>
+        <div class="text" v-html="doctorInfo.disease"></div>
         <h1 class="title" v-if="doctorInfo.work_process && parseInt($route.query.yid) !== 10">工作经历</h1>
-        <p class="text">{{doctorInfo.work_process}}</p>
+        <div class="text" v-html="doctorInfo.work_process"></div>
       </div>
       
       <div class="open" :class='{active: showMore}' @click='showMore = !showMore'>
@@ -363,9 +363,17 @@
             title: `川派医方馆${this.doctorInfo.name}${this.doctorInfo.title_title}`,
             link: this.handUrl(location.hash),
             img: `${this.doctorInfo.avatar}`,
-            desc: `${this.doctorInfo.disease}`
+            desc: this.removeHTMLTag(`${this.doctorInfo.disease}`)
           })
         })
+      },
+      removeHTMLTag (str) {
+        str = str.replace(/<\/?[^>]*>/g, '') // 去除HTML tag
+        str = str.replace(/[ | ]*\n/g, '\n') // 去除行尾空白
+        // str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+        str = str.replace(/&nbsp;/ig, '') // 去掉&nbsp;
+        str = str.replace(/\s/g, '') // 将空格去掉
+        return str
       }
     }
   }
@@ -441,7 +449,20 @@
       font-size: 0.28rem;
       line-height: 0.48rem;
       margin-bottom: 0.3rem;
+      img {
+        max-width: 100%;
+      }
       &.hidden{
+        overflow : hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+      &.hidden > p{
+        display: none;
+      }
+      &.hidden > p:first-child{
         overflow : hidden;
         text-overflow: ellipsis;
         display: -webkit-box;

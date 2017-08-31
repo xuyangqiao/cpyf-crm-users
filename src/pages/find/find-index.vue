@@ -4,14 +4,14 @@
       <swiper :list="swiperList" :show-desc-mask="false" dots-class="swiper-dots" :auto="true" :loop="true" height="2.4rem" dots-position="center"></swiper>
     </div>
   
-    <!-- <div class="nav-wrap">
-        <div class="nav-item" v-for="i in 5">
-          <img src="../../assets/images/icon/find-item.png" class="nav-img">
-          <p class="title">活动资讯</p>
-        </div>
-      </div> -->
+    <div class="nav-wrap">
+      <router-link :to="{path: '/find/list', query: {cid: item.id}}" class="nav-item" tag="div" v-for="(item, index) in ArticleCategory" :key="item.id">
+        <img :src="item.img" class="nav-img">
+        <p class="title">{{item.title}}</p>
+      </router-link>
+    </div>
   
-    <div class="article-item no-top">
+    <div class="article-item">
       <div class="article-title">
         <span class="title">推荐</span>
         <router-link :to="{path: '/find/list'}" class="more-icon">
@@ -67,6 +67,43 @@
         </div>
       </div>
     </div>
+
+    <div class="article-item" v-for="(item, index) in ArticleCategory" v-if="item.category_article.length > 0" :key="item.id">
+      <div class="article-title">
+        <span class="title">{{item.title}}</span>
+        <router-link :to="{path: '/find/list', query: {cid: item.id}}" class="more-icon">
+          <x-icon type="ios-arrow-right" size="20"></x-icon>
+        </router-link>
+      </div>
+      <div class="article-list">
+        <div v-for="(article, index) in item.category_article" :key="article.id" class="list-item-wrap">
+          <router-link :to="{path: '/find/list/article', query: {id: article.id}}" class="list-item" v-if="!article.url">
+            <div class="item-pic">
+              <img :src="article.img">
+            </div>
+            <div class="item-content">
+              <h2 class="title">{{article.title}}</h2>
+              <p class="msg">
+                <span class="time">{{article.create_time}}</span>
+                <span class="worker">{{article.author}}</span>
+              </p>
+            </div>
+          </router-link>
+          <a :href="article.url" class="list-item" :key="article.id" v-else>
+            <div class="item-pic">
+              <img :src="article.img">
+            </div>
+            <div class="item-content">
+              <h2 class="title">{{article.title}}</h2>
+              <p class="msg">
+                <span class="time">{{article.create_time}}</span>
+                <span class="worker">{{article.author}}</span>
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -94,15 +131,9 @@ export default {
       page: 0,
       fetchIng: 'canLoad',
       articleList: [],
+      ArticleCategory: [],
       flag: false,
       subjectList: []
-    }
-  },
-  computed: {
-    nextPage () {
-      return {
-        page: this.page + 1
-      }
     }
   },
   created () {
@@ -112,16 +143,11 @@ export default {
   methods: {
     async fetchData () {
       this.fetchIng = 'loading'
-      const { data: { code, data } } = await api.get('/Users/Article/index', this.nextPage)
+      const { data: { code, data } } = await api.get('/Users/Article/index')
       if (code === 200) {
-        this.page++
         this.swiperList = data.BannerList
         this.articleList = this.articleList.concat(data.ArticleList)
-        if (data.ArticleList.length < 20) {
-          this.fetchIng = 'nomore'
-        } else {
-          this.fetchIng = 'canLoad'
-        }
+        this.ArticleCategory = data.ArticleCategory
         this.flag = true
       }
     },
@@ -135,10 +161,10 @@ export default {
   mounted () {
     this.$wechat.ready(() => {
       this.wechatShare({
-        title: `${this.$store.state.userDefault.truename}推荐您预约川派医方馆疼痛专家`,
+        title: '川派医方馆精彩内容推荐！',
         link: this.handUrl(location.hash),
-        img: 'http://qpic.cn/6oICaLv7r',
-        desc: '川派医方馆，专治头颈肩腰四肢关节疼痛！'
+        img: 'http://b385.photo.store.qq.com/psb?/V11P0IcO3nwu6m/UEt*RxnRmtsQIMYLCds4YdTeGWa58xXbRYb6vWz0fiA!/b/dIEBAAAAAAAA&bo=ZABkAAAAAAADACU!&rf=viewer_4&t=5',
+        desc: '川派活动、川派风采、疼痛科普、川派中医……'
       })
     })
   }
@@ -167,7 +193,7 @@ export default {
     width: 20%;
     margin-bottom: 0.22rem;
     .nav-img {
-      height: 0.55rem;
+      height: 0.7rem;
       margin-bottom: 0.16rem;
     }
     .title {
