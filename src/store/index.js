@@ -9,10 +9,20 @@ const state = {
   newClientId: '',
   editUser: {},
   reserveInfo: null,
-  userDefault: {}
+  userDefault: {},
+  loading: false
 }
 
 const mutations = {
+  // loading
+  startLoading (state) {
+    state.loading = true
+  },
+  endLoading (state) {
+    setTimeout(() => {
+      state.loading = false
+    }, 600)
+  },
   // 页脚高亮选择
   footerSelect (state, select) {
     state.footerSelect = select

@@ -153,7 +153,9 @@
         if (code === 200) {
           this.content = data
           this.list = RandList
-          document.title = this.content.title
+          setTimeout(() => {
+            document.title = this.content.title
+          }, 500)
           if (data.article_zan) {
             this.zanFlag = true
           }

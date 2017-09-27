@@ -24,11 +24,15 @@ Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
   store.commit('footerSelect', to.meta.footer)
+  store.commit('startLoading')
+  document.body.scrollTop = 0
+  document.documentElement.scrollTop = 0
   next()
 })
 
 router.afterEach((from) => {
   Vue.prototype.wechatConfig()
+  store.commit('endLoading')
 })
 
 /* eslint-disable no-new */
