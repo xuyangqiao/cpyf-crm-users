@@ -64,6 +64,8 @@
       </confirm>
     </div>
 
+    <div class="aaa">我就是测试分之的</div>
+
     <!-- 性别 -->
     <actionsheet v-model="sexShow" :menus="sexMenu" show-cancel @on-click-menu="sexClick"></actionsheet>
   </div>
@@ -72,7 +74,7 @@
 <script>
   import { Group, XInput, XButton, Confirm, TransferDomDirective as TransferDom, Actionsheet } from 'vux'
   import api from '@/api'
-  
+
   export default {
     directives: {
       TransferDom
@@ -274,7 +276,7 @@
   .desc{
     color: #888888;
     font-size: 0.3rem;
-    line-height: 0.5rem; 
+    line-height: 0.5rem;
   }
 }
 </style>
