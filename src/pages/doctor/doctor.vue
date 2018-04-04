@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <!--擅长技术-->
+    <!-- 擅长技术 -->
     <div class="skill">
       <h1 class="title" v-if="parseInt($route.query.yid) !== 10">个人简介</h1>
       <div class="text" :class='{hidden: !showMore}' v-html="doctorInfo.desc"></div>
@@ -30,14 +30,13 @@
         <h1 class="title" v-if="doctorInfo.work_process && parseInt($route.query.yid) !== 10">工作经历</h1>
         <div class="text" v-html="doctorInfo.work_process"></div>
       </div>
-      
       <div class="open" :class='{active: showMore}' @click='showMore = !showMore'>
         <x-icon type="ios-arrow-down" size="20"></x-icon>
       </div>
     </div>
 
     <!--排班表-->
-    <div class="office-wrap">
+    <div class="office-wrap" v-if="minMouth !== '1970-01-01'">
       <div class="office-title">
         <p class="selectDay" :class='{disabled: disabledMin}' @click='preMonth'>
           <span class="prevDay"></span>
@@ -51,7 +50,6 @@
       </div>
       <inline-calendar
         class="office-date"
-        :show.sync="true"
         v-model="value"
         :start-date="minMouth"
         :end-date="maxMouth"
@@ -70,7 +68,7 @@
     <!--推荐医生-->
     <div class='push-doctor'>
       <h1 class='push-title'>推荐医生</h1>
-      <router-link :to='{path: "doctor", query: {yid: item.id}}' class="doctor-item" v-for="(item, index) in doctorList" :key='item.id'>
+      <router-link :to='{path: "doctor", query: {yid: item.id}}' class="doctor-item" v-for="item in doctorList" :key='item.id'>
         <div class="avatar">
           <img :src="item.avatar">
         </div>
@@ -81,7 +79,7 @@
         <x-icon type="ios-arrow-forward" size="20"></x-icon>
       </router-link>
     </div>
-    
+
     <!--分享提示-->
     <transition name="fade" mode="out-in">
       <div class="share-mask" v-show="shareShow" @click='shareShow=false'>
@@ -200,7 +198,11 @@
             this.markList[1].label = '未坐诊'
           } else {
             this.markList[1].type = 'primary'
-            this.markList[1].label = '上午 仅剩' + todayData.am + '个号'
+            if (todayData.am > 0 && todayData.am < 10) {
+              this.markList[1].label = '上午 紧张'
+            } else {
+              this.markList[1].label = '上午 有号'
+            }
           }
           if (todayData.pm === 0) {
             this.markList[2].type = 'disabled'
@@ -210,7 +212,11 @@
             this.markList[2].label = '未坐诊'
           } else {
             this.markList[2].type = 'primary'
-            this.markList[2].label = '下午 仅剩' + todayData.pm + '个号'
+            if (todayData.pm > 0 && todayData.pm < 10) {
+              this.markList[2].label = '下午 紧张'
+            } else {
+              this.markList[2].label = '下午 有号'
+            }
           }
           this.tipShow = true
         }
@@ -267,7 +273,7 @@
                 return `<span style='color: #ccc;'>未坐诊</span>`
               }
               if (dayList[i].am + dayList[i].pm > 10) {
-                return `<span class='green'>充足</span>`
+                return `<span class='green'>有号</span>`
               } else if (dayList[i].am + dayList[i].pm <= 0) {
                 return `<span class='red'>号满</span>`
               } else {

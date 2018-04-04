@@ -4,7 +4,7 @@
       <div class="logo"></div>
       <h1 class="title">预约信息提交失败</h1>
       <p class="msg">{{errorMsg}}</p>
-      <p class="mobile"><strong>就诊咨询电话：</strong>18113022015</p>
+      <p class="mobile"><strong>就诊咨询电话：</strong>{{phone}}</p>
 
       <x-button action-type='button' @click.native='$router.push("/")'>再次预约</x-button>
     </div>
@@ -29,6 +29,11 @@
     created () {
       this.$store.commit('footerShow', false)
       this.errorMsg = window.sessionStorage.getItem('error')
+    },
+    computed: {
+      phone () {
+        return this.$store.state.userDefault.contact
+      }
     },
     mounted () {
       this.$wechat.ready(() => {

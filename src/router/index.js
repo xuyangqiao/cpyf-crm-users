@@ -187,6 +187,88 @@ export default new Router({
       component: function (resolve) {
         require(['./../pages/find/find-subjectDetail.vue'], resolve)
       }
+    },
+    {
+      path: '/activity/dial',
+      meta: {
+        title: '大转盘',
+        footer: 2
+      },
+      component: function (resolve) {
+        require(['./../pages/activity/dial.vue'], resolve)
+      }
+    },
+    {
+      path: '/poster',
+      component: function (resolve) {
+        require(['./../pages/user/user-share.vue'], resolve)
+      },
+      meta: {
+        title: '推荐分享',
+        footerSelect: 3
+      },
+      children: [
+        {
+          path: '/share',
+          component: function (resolve) {
+            require(['./../pages/user/user-doctorcode.vue'], resolve)
+          },
+          meta: {
+            title: '公众号海报',
+            footerSelect: 3
+          }
+        },
+        {
+          path: '/poster',
+          component: function (resolve) {
+            require(['./../pages/user/user-poster.vue'], resolve)
+          },
+          meta: {
+            title: '分享海报',
+            footerSelect: 3
+          }
+        }
+      ]
+    },
+    {
+      path: '/friend',
+      component: function (resolve) {
+        require(['./../pages/share/share-friend.vue'], resolve)
+      },
+      meta: {
+        title: '我的好友',
+        footerSelect: 3
+      }
+    },
+    {
+      path: '/feedback',
+      component: function (resolve) {
+        require(['./../pages/user/user-feedback.vue'], resolve)
+      },
+      meta: {
+        title: '意见反馈',
+        footerSelect: 3
+      }
+    },
+    {
+      path: '/pennant',
+      component: function (resolve) {
+        require(['./../pages/pennant/pennantList.vue'], resolve)
+      },
+      meta: {
+        title: '我要送锦旗',
+        footerSelect: 3
+      }
+    },
+    {
+      path: '/create',
+      component: function (resolve) {
+        require(['./../pages/pennant/detail.vue'], resolve)
+      },
+      meta: {
+        title: '制作锦旗',
+        footerSelect: 3
+      }
     }
   ]
 })

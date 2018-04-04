@@ -23,16 +23,16 @@
             <img :src="item.avatar">
           </div>
           <div class="doctor-msg">
-            <h2 class="name">{{item.name}}</h2>
-            <span class="desc">{{item.title_title}}</span>
+            <h2 class="name">{{item.name}}<span class="text">{{item.title_title}}</span></h2>
+            <span class="desc" v-html="item.disease"></span>
           </div>
           <div class="doctor-mark">
             <!--<h2 class="number">{{item.am + item.pm | filterCount(item)}}</h2>-->
-            <h2 class="number">{{filterCount(item)}}</h2>
-            <span class="desc green" v-if="item.am + item.pm > 10">号源充足</span>
-            <span class="desc red" v-else-if="item.am + item.pm <= 10 && item.am + item.pm > 0">号源紧张</span>
-            <span class="desc" v-else-if="item.am + item.pm === 0">号满</span>
-            <!--<span class="desc gray" v-else-if="item.am + item.pm < 0">未坐诊</span>-->
+            <!-- <h2 class="number">{{filterCount(item)}}</h2> -->
+            <span class="number green" v-if="item.am + item.pm > 10">有号</span>
+            <span class="number red" v-else-if="item.am + item.pm <= 10 && item.am + item.pm > 0">紧张</span>
+            <span class="number red" v-else-if="item.am + item.pm === 0">号满</span>
+            <span class="number gray" v-else-if="item.am < 0 && item.pm < 0">未坐诊</span>
           </div>
           <div class="arrow-icon" :class='{active: showIndex === index}'></div>
         </div>
@@ -40,7 +40,9 @@
           <div class="content-item">
             <div class="mark-logo">am</div>
             <div class="mark-title">上午</div>
-            <div class="mark-number" v-if="item.am > 0">{{item.am}}</div>
+            <!-- <div class="mark-number" v-if="item.am > 0">{{item.am}}</div> -->
+            <div class="mark-number" v-if="item.am > 10">有号</div>
+            <div class="mark-number red" v-else-if="item.am <= 10 && item.am > 0">紧张</div>
             <div class="mark-number gray" v-else-if="item.am < 0">未坐诊</div>
             <div class="mark-number red" v-else-if="item.am === 0">号满</div>
             <x-button @click.native='message(item, 1)' :disabled='item.am <= 0'>预约</x-button>
@@ -48,7 +50,9 @@
           <div class="content-item">
             <div class="mark-logo">pm</div>
             <div class="mark-title">下午</div>
-            <div class="mark-number" v-if="item.pm > 0">{{item.pm}}</div>
+            <!-- <div class="mark-number" v-if="item.pm > 0">{{item.pm}}</div> -->
+            <div class="mark-number" v-if="item.pm > 10">有号</div>
+            <div class="mark-number red" v-else-if="item.pm <= 10 && item.pm > 0">紧张</div>
             <div class="mark-number red" v-else-if="item.pm === 0">号满</div>
             <div class="mark-number gray" v-else-if="item.pm < 0">未坐诊</div>
             <x-button :disabled='item.pm <= 0' @click.native='message(item, 2)'>预约</x-button>
@@ -344,7 +348,6 @@
         padding: 0.24rem;
         background: #fff;
         height: 1.34rem;
-        text-align: center;
         .avatar{
           height: 0.88rem;
           width: 0.88rem;
@@ -359,28 +362,62 @@
         .doctor-msg{
           color: #393939;
           font-size: 0.32rem;
-          width: 6em;
+          flex: 1;
+          max-width: 12em;
+          .text{
+            font-size: 0.26rem;
+            margin-left: 0.1rem;
+          }
           .desc{
             display: inline-block;
             font-size: 0.2rem;
             color: #a3a3a3;
             margin-top: 0.1rem;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: 100%;
+            height: 0.3rem;
+            line-height: 0.3rem;
           }
         }
         .doctor-mark{
           color: #393939;
           font-size: 0.32rem;
-          flex: 1;
+          text-align: right;
+          margin-right: 0.3rem;
+          min-width: 4em;
+          .number{
+            border: 1px solid;
+            padding: 0.08rem 0.18rem;
+            box-sizing: border-box;
+            border-radius: 0.2rem;
+            &.green{
+              color: #09bb07;
+              border-color: #09bb07;
+            }
+            &.gray{
+              color: #ccc;
+              border-color: #ccc;
+            }
+            &.red{
+              color: red;
+              border-color: red;
+            }
+          }
           .desc{
             display: inline-block;
             font-size: 0.2rem;
             margin-top: 0.1rem;
             color: #ff0000;
+            border: 1px solid;
             &.green{
               color: #09bb07;
+              border-color: #09bb07;
             }
             &.gray{
               color: #ccc;
+              border-color: #ccc;
             }
           }
         }
@@ -430,6 +467,7 @@
             width: 1.41rem;
             line-height: 0.62rem;
             margin-right: 0;
+            border-radius: 0.2rem;
             &:after{
               border: none;
             }

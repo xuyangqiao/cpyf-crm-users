@@ -4,7 +4,7 @@
       <div class="logo"></div>
       <h1 class="title">预约信息提交成功</h1>
       <p class="msg">川派医方馆会尽快处理您的预约请求，预约成功后会通过微信公众号或短信通知您</p>
-      <p class="mobile"><strong>就诊咨询电话：</strong>18113022015</p>
+      <p class="mobile"><strong>就诊咨询电话：</strong>{{phone}}</p>
 
       <x-button action-type='button' @click.native='$router.push("/record")'>查看预约信息</x-button>
 
@@ -35,6 +35,11 @@
     },
     created () {
       this.$store.commit('footerShow', false)
+    },
+    computed: {
+      phone () {
+        return this.$store.state.userDefault.contact
+      }
     },
     mounted () {
       this.$wechat.ready(() => {

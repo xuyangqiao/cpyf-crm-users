@@ -1,16 +1,16 @@
 <template>
-  <div class="container" v-if="flag">
+  <div class="container article-index" v-if="flag">
     <div class="header">
       <swiper :list="swiperList" :show-desc-mask="false" dots-class="swiper-dots" :auto="true" :loop="true" height="2.4rem" dots-position="center"></swiper>
     </div>
-  
+
     <div class="nav-wrap">
       <router-link :to="{path: '/find/list', query: {cid: item.id}}" class="nav-item" tag="div" v-for="(item, index) in ArticleCategory" :key="item.id">
         <img :src="item.img" class="nav-img">
         <p class="title">{{item.title}}</p>
       </router-link>
     </div>
-  
+
     <div class="article-item">
       <div class="article-title">
         <span class="title">推荐</span>
@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-  
+
     <div class="article-item">
       <div class="article-title">
         <span class="title">专题</span>
@@ -55,14 +55,16 @@
           <x-icon type="ios-arrow-right" size="20"></x-icon>
         </router-link>
       </div>
-  
+
       <div class="article-wrap">
         <div class="article-pic" v-for="(item, index) in subjectList">
           <router-link :to='{path: "/find/topic", query: {tid: item.id}}' v-if="item.type === '2'">
             <img :src="item.img2">
+            <p class="text">{{item.desc}}</p>
           </router-link>
           <a :href="item.url" v-else>
             <img :src="item.img2">
+            <p class="text">{{item.desc}}</p>
           </a>
         </div>
       </div>
@@ -200,6 +202,27 @@ export default {
       color: #3b3b3b;
       font-size: 0.24rem;
     }
+  }
+}
+
+.article-index{
+  .article-item .article-wrap .article-pic {
+    height: auto;
+    img{
+      height: 1.8rem;
+    }
+  }
+}
+
+.article-pic{
+  .text{
+    font-size: 0.28rem;
+    line-height: 0.38rem;
+    height: 0.76rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 }
 

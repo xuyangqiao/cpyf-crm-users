@@ -91,6 +91,24 @@ Vue.prototype.wechatConfig = async function () {
   }
 }
 
+Vue.prototype.wechatSpecialConfig = async function () {
+  const {data: {code, data}} = await api.get('/Users/Wechatconfig/WechatConfig')
+  if (code === 200 && data) {
+    Vue.wechat.config({
+      debug: false,
+      appId: data.appId, // 必填，公众号的唯一标识
+      timestamp: data.timestamp, // 必填，生成签名的时间戳
+      nonceStr: data.nonceStr, // 必填，生成签名的随机串
+      signature: data.signature, // 必填，签名，见附录1
+      jsApiList: ['hideMenuItems', 'chooseWXPay', 'startRecord', 'stopRecord', 'onVoiceRecordEnd', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'chooseImage', 'uploadImage', 'previewImage', 'getLocalImgData', 'playVoice', 'pauseVoice', 'stopVoice', 'onVoicePlayEnd', 'uploadVoice'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    })
+    Vue.wechat.hideAllNonBaseMenuItem()
+    Vue.wechat.error(function (res) {
+      console.log(res)
+    })
+  }
+}
+
 Vue.prototype.handUrl = (url) => {
   url = url.split('#')[1]
   return url

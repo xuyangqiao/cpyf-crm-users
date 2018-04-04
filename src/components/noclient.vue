@@ -39,7 +39,7 @@
     created () {
       setTimeout(() => {
         this.windowShow = !this.tipShow
-      }, 1000)
+      }, 5000)
     },
     methods: {
       newClient () {

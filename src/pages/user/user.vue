@@ -45,16 +45,25 @@
           <div class="icon-wrap">
             <span class="menu-icon menu-recorde"></span>
           </div>
-          <div class="item-content">
+          <div class="item-content vux-1px-b">
             <h1 class="title">预约记录</h1>
             <div class="link">
               <x-icon type="ios-arrow-right" size="20"></x-icon>
             </div>
           </div>
         </router-link>
-      </div>
+        <router-link to='/friend' tag='div' class="menu-item">
+          <div class="icon-wrap">
+            <span class="menu-icon menu-friend"></span>
+          </div>
+          <div class="item-content vux-1px-b">
+            <h1 class="title">关联好友</h1>
+            <div class="link">
+              <x-icon type="ios-arrow-right" size="20"></x-icon>
+            </div>
+          </div>
+        </router-link>
 
-      <div class="menu-group">
         <!--<div class="menu-item">
           <div class="icon-wrap">
             <span class="menu-icon menu-help"></span>
@@ -79,18 +88,18 @@
             </div>
           </a>
         </div>
-        <div v-if="userDefault.menu || userDefault.MenuList.poster || userDefault.level < 5">
-          <a :href="url.posterUrl" class="menu-item">
+        <div>
+          <router-link :to="{path: '/poster'}" class="menu-item">
             <div class="icon-wrap">
               <span class="menu-icon menu-poster"></span>
             </div>
             <div class="item-content vux-1px-b">
-              <h1 class="title">活动推荐</h1>
+              <h1 class="title">推广海报</h1>
               <div class="link">
                 <x-icon type="ios-arrow-right" size="20"></x-icon>
               </div>
             </div>
-          </a>
+          </router-link>
         </div>
         <div>
           <a href="https://www.sobot.com/chat/pc/index.html?sysNum=7db545cf781543878d3f132c844fc6a8" class="menu-item">
@@ -110,13 +119,26 @@
             <div class="icon-wrap">
               <span class="menu-icon menu-about"></span>
             </div>
-            <div class="item-content">
+            <div class="item-content vux-1px-b">
               <h1 class="title">关于川派</h1>
               <div class="link">
                 <x-icon type="ios-arrow-right" size="20"></x-icon>
               </div>
             </div>
           </a>
+        </div>
+        <div>
+          <router-link :to="{path: '/feedback'}" class="menu-item">
+            <div class="icon-wrap">
+              <span class="menu-icon menu-feedback"></span>
+            </div>
+            <div class="item-content vux-1px-b">
+              <h1 class="title">意见反馈</h1>
+              <div class="link">
+                <x-icon type="ios-arrow-right" size="20"></x-icon>
+              </div>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -160,7 +182,6 @@ export default {
     },
     attentionShow () {
       // 如果没有就诊人 直接返回false 不提示关注公众号
-      console.log(this.userDefault.count)
       if (this.$store.state.userDefault.count <= 0) {
         return false
       }
@@ -315,11 +336,19 @@ export default {
         }
         .menu-poster{
           background-image: url('./../../assets/images/icon/menu-poster.png');
-          background-size: 0.36rem;
+          background-size: 0.34rem;
         }
         .menu-service{
           background-image: url('./../../assets/images/icon/menu-service.png');
-          background-size: 0.36rem;
+          background-size: 0.34rem;
+        }
+        .menu-feedback{
+          background-image: url('./../../assets/images/icon/menu-feedback.png');
+          background-size: 0.29rem;
+        }
+        .menu-friend{
+          background-image: url('./../../assets/images/icon/menu-friend.png');
+          background-size: 0.34rem;
         }
       }
       .item-content{

@@ -46,7 +46,7 @@
     <div class="btn-wrap">
       <x-button action-type='button' @click.native='saveClient' v-if="!$route.query.isEdit">保存</x-button>
       <x-button action-type='button' @click.native='editClient' v-else>保存</x-button>
-      <div class="unbind" v-if="this.$route.query.isEdit" @click='deletelShow = true'>解绑就诊人</div>
+      <div class="unbind" v-if="this.$route.query.isEdit" @click='deletelShow = true'>设置默认就诊人</div>
     </div>
     <div class="desc-wrap">
       <div class="title red">注：</div>
@@ -58,9 +58,9 @@
 
     <div v-transfer-dom>
       <confirm v-model="deletelShow"
-      title="确认解绑该就诊人吗？"
+      title="确认设置？"
       @on-confirm="deleteClient">
-        <p style="text-align:center">解绑后将无法继续为他预约！</p>
+        <p style="text-align:center">确认设置该就诊人为默认就诊人吗？</p>
       </confirm>
     </div>
 
@@ -72,7 +72,7 @@
 <script>
   import { Group, XInput, XButton, Confirm, TransferDomDirective as TransferDom, Actionsheet } from 'vux'
   import api from '@/api'
-  
+
   export default {
     directives: {
       TransferDom
@@ -259,7 +259,8 @@
     color: #2d2d2d;
     text-decoration: underline;
     margin: 0.5rem auto 0;
-    width: 6em;
+    width: 8em;
+    text-align: center;
   }
 }
 .desc-wrap{
@@ -274,7 +275,7 @@
   .desc{
     color: #888888;
     font-size: 0.3rem;
-    line-height: 0.5rem; 
+    line-height: 0.5rem;
   }
 }
 </style>

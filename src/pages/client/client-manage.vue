@@ -1,12 +1,12 @@
 <template>
   <div class="wrap">
-    <div class="manage-top vux-1px-b">
-      <!--<span class="msg">您可以绑定24名就诊人</span>-->
-      <div class="title" @click='checkNewClient'>
-        <span>新建就诊人</span>
-        <x-icon type="ios-plus-empty" size="30"></x-icon>
-      </div>
-    </div>
+    <!--<div class="manage-top vux-1px-b">-->
+      <!--&lt;!&ndash;<span class="msg">您可以绑定24名就诊人</span>&ndash;&gt;-->
+      <!--<div class="title" @click='checkNewClient'>-->
+        <!--<span>新建就诊人</span>-->
+        <!--<x-icon type="ios-plus-empty" size="30"></x-icon>-->
+      <!--</div>-->
+    <!--</div>-->
 
     <div class="client-item" @click='itemClick(item, index)' :class='{active: activeIndex === index}' v-for="(item, index) in clientList">
       <div class="client-left">
@@ -18,15 +18,24 @@
       </div>
       <div class="client-right">
         <x-icon type="ios-arrow-forward" size="20"></x-icon>
+        <!--<div class="mini-btn">预约挂号</div>-->
       </div>
+    </div>
+
+    <div class="btn-wrap">
+      <x-button action-type='button' @click.native='checkNewClient'>添加就诊人</x-button>
     </div>
   </div>
 </template>
 
 <script>
 import api from '@/api'
+import {XButton} from 'vux'
 
 export default {
+  components: {
+    XButton
+  },
   data () {
     return {
       activeIndex: -1,
@@ -97,7 +106,14 @@ export default {
 <style lang="less">
 .wrap{
   height: 100vh;
-  background: #fff;
+}
+.mini-btn{
+  display: inline-block;
+  border: 1px solid #09bb07;
+  border-radius: 4px;
+  color: #09bb07;
+  font-size: 0.26rem;
+  padding: 0.14rem 0.18rem;
 }
 .manage-top{
   height: 0.8rem;
@@ -127,6 +143,7 @@ export default {
   height: 1.42rem;
   padding: 0 0.3rem;
   border-bottom: 1px solid #e7e7e7;
+  background: #fff;
   &.active{
     background-color: rgba(9, 187, 7, 0.2);
   }
@@ -160,4 +177,8 @@ export default {
     }
   }
 }
+  .btn-wrap{
+    margin-top: 0.8rem;
+    padding: 0.4rem;
+  }
 </style>

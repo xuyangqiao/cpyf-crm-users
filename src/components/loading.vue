@@ -1,13 +1,11 @@
 <template>
   <div class="loading-wrap">
-    <div class="csshub-loading-text">
-      <span>L</span>
-      <span>O</span>
-      <span>A</span>
-      <span>D</span>
-      <span>I</span>
-      <span>N</span>
-      <span>G</span>
+    <div class="line-scale-pulse-out-rapid">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   </div>
 </template>
@@ -17,95 +15,61 @@
 </script>
 
 <style lang="less" scoped>
-.loading-wrap {
-  position: fixed;
+.loading-wrap{
   background: #fff;
+  position: fixed;
   top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  z-index: 10000;
+  z-index: 3000;
+}
+.line-scale-pulse-out-rapid {
+  transform: scale(1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.csshub-loading-text {
-  text-align: center;
-  font-size: 0.4rem;
-}
-
-.csshub-loading-text span {
+.line-scale-pulse-out-rapid>div {
+  background-color: #A8B50F;
+  width: 4px;
+  height: 35px;
+  border-radius: 2px;
+  margin: 2px;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
   display: inline-block;
-  margin: 300px 5px;
-  color: #333;
+  vertical-align: middle;
+  -webkit-animation: line-scale-pulse-out-rapid 0.9s -0.50s infinite cubic-bezier(0.11, 0.49, 0.38, 0.78);
+  animation: line-scale-pulse-out-rapid 0.9s -0.50s infinite cubic-bezier(0.11, 0.49, 0.38, 0.78);
 }
 
-.csshub-loading-text span:nth-child(1) {
-  -webkit-filter: blur(0px);
-  filter: blur(0px);
-  -webkit-animation: csshub-blur-text 1.5s 0s infinite linear alternate;
-  animation: csshub-blur-text 1.5s 0s infinite linear alternate;
+.line-scale-pulse-out-rapid>div:nth-child(2),
+.line-scale-pulse-out-rapid>div:nth-child(4) {
+  -webkit-animation-delay: -0.25s !important;
+  animation-delay: -0.25s !important;
 }
 
-.csshub-loading-text span:nth-child(2) {
-  -webkit-filter: blur(0px);
-  filter: blur(0px);
-  -webkit-animation: csshub-blur-text 1.5s 0.2s infinite linear alternate;
-  animation: csshub-blur-text 1.5s 0.2s infinite linear alternate;
+.line-scale-pulse-out-rapid>div:nth-child(1),
+.line-scale-pulse-out-rapid>div:nth-child(5) {
+  -webkit-animation-delay: 0s !important;
+  animation-delay: 0s !important;
 }
 
-.csshub-loading-text span:nth-child(3) {
-  -webkit-filter: blur(0px);
-  filter: blur(0px);
-  -webkit-animation: csshub-blur-text 1.5s 0.4s infinite linear alternate;
-  animation: csshub-blur-text 1.5s 0.4s infinite linear alternate;
-}
-
-.csshub-loading-text span:nth-child(4) {
-  -webkit-filter: blur(0px);
-  filter: blur(0px);
-  -webkit-animation: csshub-blur-text 1.5s 0.6s infinite linear alternate;
-  animation: csshub-blur-text 1.5s 0.6s infinite linear alternate;
-}
-
-.csshub-loading-text span:nth-child(5) {
-  -webkit-filter: blur(0px);
-  filter: blur(0px);
-  -webkit-animation: csshub-blur-text 1.5s 0.8s infinite linear alternate;
-  animation: csshub-blur-text 1.5s 0.8s infinite linear alternate;
-}
-
-.csshub-loading-text span:nth-child(6) {
-  -webkit-filter: blur(0px);
-  filter: blur(0px);
-  -webkit-animation: csshub-blur-text 1.5s 1s infinite linear alternate;
-  animation: csshub-blur-text 1.5s 1s infinite linear alternate;
-}
-
-.csshub-loading-text span:nth-child(7) {
-  -webkit-filter: blur(0px);
-  filter: blur(0px);
-  -webkit-animation: csshub-blur-text 1.5s 1.2s infinite linear alternate;
-  animation: csshub-blur-text 1.5s 1.2s infinite linear alternate;
-}
-
-@-webkit-keyframes csshub-blur-text {
+@keyframes line-scale-pulse-out-rapid {
   0% {
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
+    -webkit-transform: scaley(1);
+    transform: scaley(1);
   }
-  100% {
-    -webkit-filter: blur(4px);
-    filter: blur(4px);
+  80% {
+    -webkit-transform: scaley(0.3);
+    transform: scaley(0.3);
   }
-}
-
-@keyframes csshub-blur-text {
-  0% {
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
-  }
-  100% {
-    -webkit-filter: blur(4px);
-    filter: blur(4px);
+  90% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1);
   }
 }
 </style>
