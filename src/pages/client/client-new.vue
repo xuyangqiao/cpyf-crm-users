@@ -64,6 +64,8 @@
       </confirm>
     </div>
 
+    <div class="aaa">我就是测试分之的</div>
+
     <!-- 性别 -->
     <actionsheet v-model="sexShow" :menus="sexMenu" show-cancel @on-click-menu="sexClick"></actionsheet>
   </div>
