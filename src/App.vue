@@ -59,4 +59,8 @@ export default {
   transform: translate3d(3rem, 0, 0);
   opacity: 0;
 }
+.flex{
+  display: flex;
+  align-items: center;
+}
 </style>

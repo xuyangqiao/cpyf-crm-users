@@ -65,7 +65,7 @@ export default {
           this.wechatShare({
             title: '川派医方馆疼痛专家可以在线预约啦！',
             link: this.handUrl(location.hash),
-            img: 'http://qpic.cn/6oICaLv7r',
+            img: 'http://m.qpic.cn/psb?/V11P0IcO3nwu6m/0iy19ozUJOnxFpSC*edLkx6yh1M7jO6WQq5uscPCnfs!/b/dEEBAAAAAAAA&bo=sQCxAAAAAAADFzI!&rf=viewer_4&t=5',
             desc: '川派医方馆，专治头颈肩腰四肢关节疼痛！'
           })
         })
@@ -82,7 +82,7 @@ export default {
   //     this.wechatShare({
   //       title: '川派疼痛专家号源紧张，赶紧预约！',
   //       link: this.handUrl(location.hash),
-  //       img: 'http://qpic.cn/6oICaLv7r',
+  //       img: 'http://m.qpic.cn/psb?/V11P0IcO3nwu6m/0iy19ozUJOnxFpSC*edLkx6yh1M7jO6WQq5uscPCnfs!/b/dEEBAAAAAAAA&bo=sQCxAAAAAAADFzI!&rf=viewer_4&t=5',
   //       desc: '川派疼痛医生集团，专治头颈肩腰腿痛！'
   //     })
   //   })

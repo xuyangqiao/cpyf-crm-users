@@ -32,26 +32,29 @@
       return {
         tipShow: true,
         poster: [],
-        swiperIndex: 0
+        swiperIndex: 0,
+        poster_system_id: null,
+        flag: false
       }
     },
     created () {
       this.getPic()
     },
     methods: {
-      async getPic (flag) {
+      async getPic () {
         let obj = null
-        if (flag) {
+        if (this.flag) {
           obj = {
-            id: this.poster.id
+            id: this.poster_system_id
           }
         }
         const {data: {code, data}} = await api.get('/Users/Mycenter/WechatPoster', obj)
-        if (code === 200) {
-          if (data.length <= 0) {
-            return
-          }
-          this.poster = data
+        if (code === 200 && data.poster_system_id) {
+          this.poster_system_id = data.poster_system_id
+          this.poster.push(data)
+          this.flag = true
+        } else {
+          this.flag = false
         }
       },
       onSwiperItemIndexChange (index) {
@@ -63,7 +66,10 @@
           this.swiperIndex = this.poster.length - 1
         }
       },
-      next () {
+      async next () {
+        if (this.flag) {
+          await this.getPic()
+        }
         this.swiperIndex++
         if (this.swiperIndex >= this.poster.length) {
           this.swiperIndex = 0

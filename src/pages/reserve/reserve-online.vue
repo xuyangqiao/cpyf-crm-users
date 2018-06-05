@@ -38,24 +38,32 @@
         </div>
         <div class="doctor-content vux-1px-t" v-if="showIndex === index">
           <div class="content-item">
-            <div class="mark-logo">am</div>
-            <div class="mark-title">上午</div>
-            <!-- <div class="mark-number" v-if="item.am > 0">{{item.am}}</div> -->
-            <div class="mark-number" v-if="item.am > 10">有号</div>
-            <div class="mark-number red" v-else-if="item.am <= 10 && item.am > 0">紧张</div>
-            <div class="mark-number gray" v-else-if="item.am < 0">未坐诊</div>
-            <div class="mark-number red" v-else-if="item.am === 0">号满</div>
-            <x-button @click.native='message(item, 1)' :disabled='item.am <= 0'>预约</x-button>
+            <div class="flex">
+              <div class="mark-logo"></div>
+              <div class="mark-title">上午</div>
+            </div>
+            <div class="base-title" v-if="item.am_base_title">{{item.am_base_title}}</div>
+            <div class="flex">
+              <div class="mark-number" v-if="item.am > 10">有号</div>
+              <div class="mark-number red" v-else-if="item.am <= 10 && item.am > 0">紧张</div>
+              <div class="mark-number gray" v-else-if="item.am < 0">未坐诊</div>
+              <div class="mark-number red" v-else-if="item.am === 0">号满</div>
+              <x-button @click.native='message(item, 1)' :disabled='item.am <= 0'>预约</x-button>
+            </div>
           </div>
           <div class="content-item">
-            <div class="mark-logo">pm</div>
-            <div class="mark-title">下午</div>
-            <!-- <div class="mark-number" v-if="item.pm > 0">{{item.pm}}</div> -->
-            <div class="mark-number" v-if="item.pm > 10">有号</div>
-            <div class="mark-number red" v-else-if="item.pm <= 10 && item.pm > 0">紧张</div>
-            <div class="mark-number red" v-else-if="item.pm === 0">号满</div>
-            <div class="mark-number gray" v-else-if="item.pm < 0">未坐诊</div>
-            <x-button :disabled='item.pm <= 0' @click.native='message(item, 2)'>预约</x-button>
+            <div class="flex">
+              <div class="mark-logo"></div>
+              <div class="mark-title">下午</div>
+            </div>
+            <div class="base-title" v-if="item.pm_base_title">{{item.pm_base_title}}</div>
+            <div class="flex">
+              <div class="mark-number" v-if="item.pm > 10">有号</div>
+              <div class="mark-number red" v-else-if="item.pm <= 10 && item.pm > 0">紧张</div>
+              <div class="mark-number red" v-else-if="item.pm === 0">号满</div>
+              <div class="mark-number gray" v-else-if="item.pm < 0">未坐诊</div>
+              <x-button :disabled='item.pm <= 0' @click.native='message(item, 2)'>预约</x-button>
+            </div>
           </div>
         </div>
       </div>
@@ -228,7 +236,7 @@
             this.wechatShare({
               title: this.userDefault.truename + '推荐您预约川派医方馆疼痛专家',
               link: this.handUrl(location.hash),
-              img: 'http://qpic.cn/6oICaLv7r',
+              img: 'http://m.qpic.cn/psb?/V11P0IcO3nwu6m/0iy19ozUJOnxFpSC*edLkx6yh1M7jO6WQq5uscPCnfs!/b/dEEBAAAAAAAA&bo=sQCxAAAAAAADFzI!&rf=viewer_4&t=5',
               desc: '川派医方馆，专治头颈肩腰四肢关节疼痛！'
             })
           })
@@ -439,11 +447,12 @@
         .content-item{
           display: flex;
           align-items: center;
-          padding: 0.2rem 0.24rem 0.2rem 0.8rem;
+          justify-content: space-between;
+          padding: 0.2rem 0.24rem 0.2rem 0.4rem;
           color: #393939;
           .mark-logo{
-            width: 24px;
-            height: 24px;
+            width: 12px;
+            height: 12px;
             background-color: #a3a3a3;
             border-radius: 50%;
             font-size: 12px;
@@ -452,6 +461,7 @@
             line-height: 24px;
           }
           .mark-number{
+            font-size: 0.3rem;
             width: 4em;
             text-align: center;
             &.gray{
@@ -460,7 +470,14 @@
           }
           .mark-title{
             margin-left: 0.16rem;
-            margin-right: 2rem;
+            font-size: 0.3rem;
+          }
+          .base-title{
+            font-size: 0.3rem;
+            max-width: 8em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
           .weui-btn{
             height: 0.62rem;

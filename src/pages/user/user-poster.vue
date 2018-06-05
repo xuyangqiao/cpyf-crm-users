@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div class="top-tips" v-show="tipShow">长按保存海报，即可在朋友圈、微信群分享推广哦~</div>
-    <!--<img :src="poster.img" class="poster-img">-->
     <swiper loop :aspect-ratio='1334/750' :min-moving-distance = '20' @on-index-change="onSwiperItemIndexChange"
             v-model="swiperIndex" :show-desc-mask = false>
       <swiper-item v-for="(item, index) in poster" :key="index"><img :src="item.img"></swiper-item>
@@ -32,26 +31,29 @@
       return {
         tipShow: true,
         poster: [],
-        swiperIndex: 0
+        swiperIndex: 0,
+        poster_system_id: null,
+        flag: false
       }
     },
     created () {
       this.getPic()
     },
     methods: {
-      async getPic (flag) {
+      async getPic () {
         let obj = null
-        if (flag) {
+        if (this.flag) {
           obj = {
-            id: this.poster.id
+            id: this.poster_system_id
           }
         }
         const {data: {code, data}} = await api.get('/Users/Mycenter/poster', obj)
-        if (code === 200) {
-          if (data.length <= 0) {
-            return
-          }
-          this.poster = data
+        if (code === 200 && data.poster_system_id) {
+          this.poster_system_id = data.poster_system_id
+          this.poster.push(data)
+          this.flag = true
+        } else {
+          this.flag = false
         }
       },
       onSwiperItemIndexChange (index) {
@@ -63,7 +65,10 @@
           this.swiperIndex = this.poster.length - 1
         }
       },
-      next () {
+      async next () {
+        if (this.flag) {
+          await this.getPic()
+        }
         this.swiperIndex++
         if (this.swiperIndex >= this.poster.length) {
           this.swiperIndex = 0

@@ -269,6 +269,26 @@ export default new Router({
         title: '制作锦旗',
         footerSelect: 3
       }
+    },
+    {
+      path: '/rater',
+      component: function (resolve) {
+        require(['./../pages/pennant/rater.vue'], resolve)
+      },
+      meta: {
+        title: '川派医生集团服务质量调查',
+        footerSelect: 3
+      }
+    },
+    {
+      path: '/pennantDoctor',
+      component: function (resolve) {
+        require(['./../pages/pennant/pennantDoctor.vue'], resolve)
+      },
+      meta: {
+        title: '快速祛除疼痛，就找川派医生！',
+        footerSelect: 3
+      }
     }
   ]
 })

@@ -1,56 +1,28 @@
 <template>
-  <div class='page'>
+  <div>
     <div class="top">
       <div class="message">
         <div class="avatar">
-          <img src="../../assets/images/default-avatar.png" class="avatar-img">
+          <img :src="doctor.avatar" class="avatar-img">
         </div>
-        <div class="name">宋其良 &nbsp;&nbsp; 主任医师</div>
+        <div class="name">{{doctor.name}} &nbsp;&nbsp; {{doctor.school}}</div>
         <div class="text">川派医生集团成都五洲诊疗基地</div>
       </div>
     </div>
     <div class="banner"></div>
 
     <div class="pennant-list">
-      <div class="pennant-item">
+      <div class="pennant-item" v-for="item in bannerList" :key="item.id">
         <div class="icon-wrap">
-          <img src="../../assets/images/pennant-icon-1.png" class="icon-img">
+          <img :src="item.img_list" class="icon-img">
         </div>
         <div class="pennant-content">
-          <div class="title">军医圣手  <span class="desc">（12）</span></div>
-          <div class="text">真情寄语：“本由军中三甲来， 亮剑一挥斩病魔”，军魂犹在！</div>
-          <router-link :to="{path: '/create', query:{id: 1}}" tag="div" class="btn">
+          <div class="title">{{item.title}}  <span class="desc">（{{item.send_count}}）</span></div>
+          <div class="text">真情寄语：“{{item.desc}}”</div>
+          <router-link :to="{path: '/create', query:{id: item.id, doctor_id: doctor.id}}" tag="div" class="btn">
             <span class="icon"></span>
             <span class="btn-text">我也要送</span>
           </router-link>
-        </div>
-      </div>
-
-      <div class="pennant-item">
-        <div class="icon-wrap">
-          <img src="../../assets/images/pennant-icon-2.png" class="icon-img">
-        </div>
-        <div class="pennant-content">
-          <div class="title">杏林清流  <span class="desc">（12）</span></div>
-          <div class="text">真情寄语：“尊民敬民真心为民，医德医术皆为一流。”何谓清流？此为清流！</div>
-          <div class="btn">
-            <span class="icon"></span>
-            <span class="btn-text">我也要送</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="pennant-item">
-        <div class="icon-wrap">
-          <img src="../../assets/images/pennant-icon-3.png" class="icon-img">
-        </div>
-        <div class="pennant-content">
-          <div class="title">仁心仁术  <span class="desc">（12）</span></div>
-          <div class="text">真情寄语：“良医有情解病，神术无声除疾。”大爱无疆，热心为民！</div>
-          <div class="btn">
-            <span class="icon"></span>
-            <span class="btn-text">我也要送</span>
-          </div>
         </div>
       </div>
     </div>
@@ -60,16 +32,39 @@
 </template>
 
 <script>
-// import api from '@/api'
+import api from '@/api'
 
 export default {
   data () {
-    return {}
+    return {
+      bannerList: [],
+      doctor: ''
+    }
   },
   created () {
     this.$store.commit('footerShow', false)
+    this.getList()
   },
-  methods: {}
+  methods: {
+    async getList () {
+      const {data: {code, data}} = await api.get('/Banner/Sendbanner/bannerList', {doctor_id: this.$route.query.id})
+      if (code === 200) {
+        this.bannerList = data.bannerList
+        this.doctor = data.doctorDetail
+        this.shareMsg()
+      }
+    },
+    shareMsg () {
+      this.$wechat.ready(() => {
+        this.wechatShare({
+          title: `我给${this.doctor.name}医生送锦旗`,
+          link: this.handUrl(location.hash),
+          img: this.doctor.avatar,
+          desc: '电子锦旗免费送，每人可送1面锦旗哦~'
+        })
+      })
+    }
+  }
 }
 </script>
 

@@ -192,30 +192,30 @@
         if (todayData) {
           if (todayData.am === 0) {
             this.markList[1].type = 'disabled'
-            this.markList[1].label = '上午 号满'
+            this.markList[1].label = `上午 ${todayData.am_base_title || ''} 号满`
           } else if (todayData.am < 0) {
             this.markList[1].type = 'disabled'
             this.markList[1].label = '未坐诊'
           } else {
             this.markList[1].type = 'primary'
             if (todayData.am > 0 && todayData.am < 10) {
-              this.markList[1].label = '上午 紧张'
+              this.markList[1].label = `上午 ${todayData.am_base_title || ''} 紧张`
             } else {
-              this.markList[1].label = '上午 有号'
+              this.markList[1].label = `上午 ${todayData.am_base_title || ''} 有号`
             }
           }
           if (todayData.pm === 0) {
             this.markList[2].type = 'disabled'
-            this.markList[2].label = '下午 号满'
+            this.markList[2].label = `下午 ${todayData.pm_base_title || ''} 号满`
           } else if (todayData.pm < 0) {
             this.markList[2].type = 'disabled'
             this.markList[2].label = '未坐诊'
           } else {
             this.markList[2].type = 'primary'
             if (todayData.pm > 0 && todayData.pm < 10) {
-              this.markList[2].label = '下午 紧张'
+              this.markList[2].label = `下午 ${todayData.pm_base_title || ''} 紧张`
             } else {
-              this.markList[2].label = '下午 有号'
+              this.markList[2].label = `下午 ${todayData.pm_base_title || ''} 有号`
             }
           }
           this.tipShow = true

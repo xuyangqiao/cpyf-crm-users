@@ -5,7 +5,7 @@ import Vue from 'vue'
 
 // import { cookie } from 'vux'
 
-// axios.defaults.baseURL = 'http://wx.chuanpaiyifang.com/index.php/'
+// axios.defaults.baseURL = 'http://wx.chuanpaiyifang.com'
 axios.interceptors.request.use(config => {
   return config
 }, error => {
