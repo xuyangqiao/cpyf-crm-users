@@ -81,7 +81,7 @@
         <a href="http://www.chuanpaiyifang.com/about/" class="nav-item">关于我们</a>
       </div>
       <div class="company">
-        <div class="item">电话：028-89994799</div>
+        <div class="item">电话：4000-028-120</div>
         <a href="http://f.amap.com/2jGW9_05F2lIn" class="item">地址：成都市锦江区一环路东四段75号 <span class="address-icon"></span></a>
       </div>
     </div>

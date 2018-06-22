@@ -60,11 +60,11 @@
         <div class="article-pic" v-for="(item, index) in subjectList">
           <router-link :to='{path: "/find/topic", query: {tid: item.id}}' v-if="item.type === '2'">
             <img :src="item.img2">
-            <p class="text">{{item.desc}}</p>
+            <p class="text">{{item.title}}</p>
           </router-link>
           <a :href="item.url" v-else>
             <img :src="item.img2">
-            <p class="text">{{item.desc}}</p>
+            <p class="text">{{item.title}}</p>
           </a>
         </div>
       </div>

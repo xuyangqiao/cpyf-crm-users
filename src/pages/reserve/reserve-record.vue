@@ -57,7 +57,7 @@
       @on-confirm="sureCancel">
         <p style="text-align:center">取消后可能会耽误您的就诊！</p>
         <p style="text-align:center">如需修改预约信息，可联系：</p>
-        <h2 class="red" style="font-size: 0.34rem;">18113022015</h2>
+        <h2 class="red" style="font-size: 0.34rem;">4000-028-120</h2>
       </confirm>
     </div>
   </div>

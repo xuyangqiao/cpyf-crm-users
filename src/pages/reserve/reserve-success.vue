@@ -3,7 +3,7 @@
     <div class="content vux-1px-b">
       <div class="logo"></div>
       <h1 class="title">预约信息提交成功</h1>
-      <p class="msg">川派医方馆会尽快处理您的预约请求，预约成功后会通过微信公众号或短信通知您</p>
+      <p class="msg">川派医生集团会尽快处理您的预约请求，预约成功后会通过微信公众号或短信通知您</p>
       <p class="mobile"><strong>就诊咨询电话：</strong>{{phone}}</p>
 
       <x-button action-type='button' @click.native='$router.push("/record")'>查看预约信息</x-button>
@@ -16,7 +16,7 @@
         <img src="./../../assets/images/qrcode.png" class="code-pic">
       </div>
       <div class="foot-msg">
-        <p>扫码关注川派医方馆公众号</p>
+        <p>扫码关注川派医生集团公众号</p>
         <p>咨询 / 预约 / 随访</p>
       </div>
     </div>
@@ -44,10 +44,10 @@
     mounted () {
       this.$wechat.ready(() => {
         this.wechatShare({
-          title: `${this.$store.state.userDefault.truename}推荐您预约川派医方馆疼痛专家`,
+          title: `${this.$store.state.userDefault.truename}推荐您预约川派医生集团疼痛专家`,
           link: '/',
           img: 'http://m.qpic.cn/psb?/V11P0IcO3nwu6m/0iy19ozUJOnxFpSC*edLkx6yh1M7jO6WQq5uscPCnfs!/b/dEEBAAAAAAAA&bo=sQCxAAAAAAADFzI!&rf=viewer_4&t=5',
-          desc: '川派医方馆，专治头颈肩腰四肢关节疼痛！'
+          desc: '川派医生集团，专治头颈肩腰四肢关节疼痛！'
         })
       })
     }

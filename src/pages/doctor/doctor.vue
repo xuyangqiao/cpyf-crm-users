@@ -7,10 +7,9 @@
       <div class="content">
         <h1 class="name">{{doctorInfo.name}}</h1>
         <p class="title">{{doctorInfo.title_title}}</p>
-        <p class="info">{{doctorInfo.hospital_title}}</p>
+        <p class="info">{{doctorInfo.school}}</p>
         <p class="info">{{doctorInfo.profession_title}} {{doctorInfo.position_title}}</p>
         <p class="info">{{doctorInfo.degree_title}}</p>
-        <!--<p class="info">{{doctorInfo.}}</p>-->
       </div>
       <div class="share" @click='shareShow=true'>
         <span class="share-icon"></span>
